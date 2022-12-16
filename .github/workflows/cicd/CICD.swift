@@ -6,14 +6,15 @@ struct CICD: Workflow {
         try await runSwiftPR(PullRequestStandards.self)
         try await build()
         try await test()
-        try await importSigningAssets(
-            appStoreConnectKeySecret: .init(p8: <#T##Secret#>, keyID: <#T##String#>, keyIssuerID: <#T##String#>),
-            certificateSecret: .init(p12: <#T##Secret#>, password: <#T##Secret#>),
-            profileSecret: <#T##Secret#>
+        let assets = try await importSigningAssets(
+            appStoreConnectKeySecret: .init(
+                keyID: "76T4SJRBUR",
+                keyIssuerID: "69a6de96-6d58-47e3-e053-5b8c7c11a4d1"
+            )
         )
         try await uploadToAppStore(
-            profile: <#T##ProvisioningProfile#>,
-            appStoreConnectKey: <#T##AppStoreConnect.Key#>
+            profile: assets.profile,
+            appStoreConnectKey: assets.appStoreConnectKey
         )
     }
 }
