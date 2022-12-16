@@ -22,4 +22,8 @@ jobs:
         echo "::group::Swift Run"
         swift run --package-path .github/workflows/cicd
       env:
+        APP_STORE_CONNECT_KEY_P8: ${{ secrets.APP_STORE_CONNECT_KEY_P8 }}
+        CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
+        CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+        PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
