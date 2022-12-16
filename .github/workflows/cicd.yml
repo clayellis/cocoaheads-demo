@@ -1,0 +1,25 @@
+name: CICD
+
+on:
+  pull_request:
+    branches: ["main"]
+    types:
+      - opened
+      - closed
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  swift-ci:
+    name: SwiftCI
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Run SwiftCI
+      run: |
+        echo "::group::Swift Run"
+        swift run --package-path .github/workflows/cicd
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
